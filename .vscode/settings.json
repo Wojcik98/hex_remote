@@ -1,0 +1,15 @@
+{
+    "clangd.arguments": [
+        "--compile-commands-dir=/home/michal/robots/hex_remote/out/hex_remote/STM32F429ZITx"
+    ],
+    "cmsis-csolution.actions": [
+        {
+            "path": "hex_remote.csolution.yml",
+            "target": "STM32F429ZITx",
+            "config": {
+                "run": "Flash Device",
+                "debug": "Arm Debugger"
+            }
+        }
+    ]
+}

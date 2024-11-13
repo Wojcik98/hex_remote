@@ -1,0 +1,48 @@
+/*
+ * Copyright (C) 2011 J. Coliz <maniacbug@ymail.com>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * version 2 as published by the Free Software Foundation.
+ */
+
+/**
+ * @file RF24_arch_config.h
+ * General defines and includes for RF24/Linux
+ */
+
+/**
+ * Example of RF24_arch_config.h for RF24 portability
+ *
+ * @defgroup Porting_General Porting: General
+ * @{
+ */
+
+#ifndef RF24_UTILITY_STM32_RF24_ARCH_CONFIG_H_
+#define RF24_UTILITY_STM32_RF24_ARCH_CONFIG_H_
+
+// define here the architecture that you are using
+// #define STM32F1
+// #define STM32F3
+#define STM32F4
+#define STM32
+
+// builds the rf24 library with minimal requirements
+#define MINIMAL
+
+#include <cstdint>
+#include <cstring>
+
+constexpr uint8_t _BV(uint8_t bit) { return 1 << bit; }
+#define PROGMEM
+#define PSTR(x) (x)
+#define PRIPSTR "%s"
+#define pgm_read_word(p) (*(const unsigned char *)(p))
+#define pgm_read_byte(p) (*(const unsigned short *)(p))
+#define pgm_read_ptr(p) (*(const void *)(p))
+
+#define delayMicroseconds(usecs) __usleep(usecs)
+#define delay(msecs) HAL_Delay(msecs)
+#define millis HAL_GetTick
+
+#endif // RF24_UTILITY_STM32_RF24_ARCH_CONFIG_H_

@@ -1,0 +1,19 @@
+# A solution is a collection of related projects that share same base configuration.
+solution:
+  created-for: CMSIS-Toolbox@2.4.0
+  compiler: AC6
+
+  # List the packs that define the device and/or board.
+  packs:
+    - pack: Keil::STM32F4xx_DFP@2.17.1
+    - pack: ARM::CMSIS@5.9.0
+
+  # List different hardware targets that are used to deploy the solution.
+  target-types:
+    - type: STM32F429ZITx
+      board: STMicroelectronics::STM32F429I-Discovery:Rev.B
+      device: STMicroelectronics::STM32F429ZITx
+
+  # List related projects.
+  projects:
+    - project: hex_remote/hex_remote.cproject.yml

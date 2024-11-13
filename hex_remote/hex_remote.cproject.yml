@@ -1,0 +1,93 @@
+# A project translates into one executable or library.
+project:
+  setups:
+    - setup: Options for Flash
+      for-context: +STM32F429ZITx
+      processor:
+        fpu: sp
+      debug: on
+      optimize: debug
+      define:
+        - __MICROLIB
+      define-asm:
+        - __MICROLIB
+      misc:
+        - C:
+            - -std=c99
+          C-CPP:
+            - -fno-rtti
+            - -funsigned-char
+            - -fshort-enums
+            - -fshort-wchar
+            - -fno-function-sections
+            - -fno-exceptions
+            - -Wno-packed
+            - -Wno-missing-variable-declarations
+            - -Wno-missing-prototypes
+            - -Wno-missing-noreturn
+            - -Wno-sign-conversion
+            - -Wno-nonportable-include-path
+            - -Wno-reserved-id-macro
+            - -Wno-unused-macros
+            - -Wno-documentation-unknown-command
+            - -Wno-documentation
+            - -Wno-license-management
+            - -Wno-parentheses-equality
+          CPP:
+            - -xc++
+            - -std=c++11
+          Link:
+            - --library_type=microlib
+            - --map
+            - --load_addr_map_info
+            - --xref
+            - --callgraph
+            - --symbols
+            - --info sizes
+            - --info totals
+            - --info unused
+            - --info veneers
+            - --strict
+            - --summary_stderr
+            - --info summarysizes
+
+  groups:
+    - group: Source Files
+      files:
+        - file: main.cpp
+        - file: rf24/rf24.cpp
+        - file: rf24/utility/compatibility.cpp
+        - file: rf24/gpio.cpp
+        - file: rf24/spi.cpp
+
+  # List components to use for your application.
+  # A software component is a re-usable unit that may be configurable.
+  components:
+    - component: ARM::CMSIS:CORE
+    - component: Device:Startup
+      misc:
+        - ASM:
+            - -masm=auto
+    - component: Keil::Board Support&STM32F429I-Discovery:Drivers:Basic I/O
+    - component: Keil::Board Support&STM32F429I-Discovery:Drivers:SDRAM
+    - component: Keil::Device:STM32Cube HAL:SPI
+    - component: Keil::Device:STM32Cube HAL:Common@1.8.1
+    - component: Keil::Device:STM32Cube HAL:DMA@1.8.1
+    - component: Keil::Device:STM32Cube Framework:Classic@1.8.1
+    - component: Keil::Device:STM32Cube HAL:Cortex@1.8.1
+    - component: Keil::Device:STM32Cube HAL:RCC@1.8.1
+    - component: Keil::Device:STM32Cube HAL:PWR@1.8.1
+    - component: Keil::Device:STM32Cube HAL:GPIO@1.8.1
+    - component: Keil::Device:STM32Cube HAL:SDRAM@1.8.1
+    - component: Keil::Device:STM32Cube HAL:UART@1.8.1
+    - component: Keil::Device:STM32Cube HAL:I2C
+    - component: Keil::Device:STM32Cube HAL:LTDC@1.8.1
+    - component: Keil::Device:STM32Cube HAL:DMA2D@1.8.1
+    - component: Keil::CMSIS Driver:I2C
+    - component: Keil::Board Support&STM32F429I-Discovery:Drivers:LCD
+    - component: Keil::Board Support&STM32F429I-Discovery:Components:ILI9341
+    - component: Keil::Board Support&STM32F429I-Discovery:Drivers:TS
+    - component: Keil::Board Support&STM32F429I-Discovery:Components:STMPE811
+  packs:
+    - pack: Keil::STM32F4xx_DFP@2.17.1
+    - pack: ARM::CMSIS@5.9.0
